@@ -2,13 +2,16 @@
  * @Description:
  * @Author: houcw
  * @Date: 2021-12-15 10:21:48
- * @LastEditTime: 2021-12-15 15:10:08
+ * @LastEditTime: 2021-12-15 21:54:21
  * @LastEditors: houcw
  * @Reference:
  */
 import React, { Component, Fragment } from "react";
 
 import Item from "./xiaojiejieItem";
+import Boss from "./boss";
+import axios from "axios";
+import TodoList from './todolist'
 import "./style.css";
 
 class Xiaojiejie extends Component {
@@ -18,6 +21,17 @@ class Xiaojiejie extends Component {
       inputValue: "", // input中的值
       list: ["数据1", "数据2"], //服务列表
     };
+  }
+  componentDidMount() {
+    axios
+      .post("https://api.apiopen.top/todayVideo")
+      .then((res) => {
+        // JSON.stringify(res)
+        console.log("axios 获取数据成功:");
+      })
+      .catch((error) => {
+        console.log("axios 获取数据失败" + error);
+      });
   }
 
   render() {
@@ -57,14 +71,12 @@ class Xiaojiejie extends Component {
             );
           })}
         </ul>
+        <Boss></Boss>
+        <TodoList/>
       </Fragment>
     );
   }
   ChangeFun(e) {
-    // this.setState({
-    //   inputValue: e.target.value,
-    // });
-
     this.setState({
       inputValue: this.input.value,
     });
